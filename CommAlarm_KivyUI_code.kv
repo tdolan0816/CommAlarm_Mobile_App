@@ -1,0 +1,1011 @@
+
+<WindowManager>:
+    OpenScreen:
+        name: 'OpenScreen'
+    MenuScreen:
+        name: 'MenuScreen'
+    Freq_Screen:
+        name: 'Freq_Screen'
+    TS_Popup:
+        name: 'TS_Popup'
+    Start_Popup:
+        name: 'Start_Popup'
+    End_Popup:
+        name: 'End_Popup'
+    Review_Popup:
+        name: 'Review_Popup'
+    Calc_Screen:
+        name: 'Calc_Screen'
+
+<OpenScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+
+        Image:
+            id: image
+            source: 'C:\CommuterAlarm\CommAlarm_Anima_Rev_Final.gif'
+            allow_stretch: True
+            anim_delay: 0
+            running_duration: 1
+            on_enter: 
+        
+<MenuScreen>:
+    name: 'MenuScreen'
+
+    MDFloatLayout:
+        orientation: 'vertical'
+    
+        MDTopAppBar:
+            id: topbar1
+            title: "CommAlarm"
+            pos_hint: {'top': 1}
+            elevation: 4
+            md_bg_color: app.theme_cls.primary_color
+            right_action_items: [["dots-vertical", lambda x: app.callback()]]
+
+        MDRaisedButton:
+            id: timeselect_button
+            text: "Alarm Time"
+            size_hint: (0.1, 0.08)
+            pos_hint: {'x': .10, 'y': 0.70}
+            on_press: root.manager.current = 'TS_Popup'
+        
+        MDRaisedButton:
+            id: start_button
+            text: "Alarm Dates/Frequency"
+            size_hint: (0.15, 0.08)
+            pos_hint: {'x': .10, 'y': 0.575}
+            on_press: root.manager.current = 'Freq_Screen'
+        
+        MDRaisedButton:
+            id: start_button
+            text: "Select Origin Location"
+            size_hint: (0.15, 0.08)
+            pos_hint: {'x': .10, 'y': 0.45}
+            on_press: root.manager.current = 'Start_Popup'
+
+        MDRaisedButton:
+            id: end_button
+            text: "Select Destination Location"
+            size_hint: (0.15, 0.08)
+            pos_hint: {'x': .10, 'y': 0.325}
+            on_press: root.manager.current = 'End_Popup'
+
+        MDRaisedButton:
+            id: next_but_home
+            text: "Next"
+            size_hint: (0.1, 0.08)
+            pos_hint: {'x': .75, 'y': 0.05} 
+            on_release: root.manager.current = 'Review_Popup'
+
+<Freq_Screen>:
+    name: 'Freq_Screen'
+
+    MDFloatLayout:
+        orientation: 'vertical'
+
+        MDTopAppBar:
+            id: topbar1
+            title: "CommAlarm"
+            pos_hint: {'top': 1}
+            elevation: 4
+            md_bg_color: app.theme_cls.primary_color
+            right_action_items: [["dots-vertical", lambda x: app.callback()]]
+
+        MDRaisedButton:
+            id: calendar_button
+            text: "Alarm Date Range"
+            size_hint: (0.1, 0.08)
+            pos_hint: {'top': 0.825 , 'x': .10}
+            on_release: root.show_date_picker()
+            
+
+        MDLabel:
+            id: start_date_label
+            text: "Start Date of Alarm:"
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {'top': 1.15 , 'x': .10}
+            font_style: 'H6'
+            theme_text_color: 'Custom'
+            text_color: 0, 0, 0, 0.625
+        
+        MDLabel:
+            id: start_date_output
+            text: ""
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {'top': 1.15 , 'x': 0.60}
+            theme_text_color: 'Custom'
+            text_color: 0, 0, 0, 0.625
+
+        
+        MDLabel:
+            id: end_date_label
+            text: "End Date of Alarm:"
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {'top': 1.075 , 'x': .10}
+            font_style: 'H6'
+            theme_text_color: 'Custom'
+            text_color: 0, 0, 0, 0.625
+
+        MDLabel:
+            id: end_date_output
+            text: ""
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {'top': 1.075 , 'x': .60}
+            theme_text_color: 'Custom'
+            text_color: 0, 0, 0, 0.625
+
+        MDLabel:
+            id: no_end_date_label
+            text: "No End Date"
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {'top': 1.0 , 'x': .10}
+            font_style: 'H6'
+            theme_text_color: 'Custom'
+            text_color: 0, 0, 0, 0.625
+            
+        MDCheckbox:
+            id: no_end_date_check
+            active: False
+            size_hint: (None, None)
+            pos_hint: {'x': 0.33, 'y': 0.419}
+            text_color: 0, 0, 0, 0.625
+            on_active: root.f_no_enddate_ckbx_input(self, self.active, end_date_output)
+        
+        MDLabel:
+            id: no_enddate_ckbx_output
+            text: " "
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {'x': 0.50, 'y': 0.3}
+            font_style: 'H6'
+            theme_text_color: 'Custom'
+            text_color: 0, 0, 0, 0
+            
+        MDLabel:
+            id: freq_label
+            text: "Please Select Frequency of Alarm"
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {'top': 0.90 , 'x': .10}
+            font_style: 'H6'
+            theme_text_color: 'Custom'
+            text_color: 0, 0, 0, 0.625
+
+        MDLabel:
+            id: freq_wkdays_label
+            text: "Weekdays Only:"
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {'top': 0.825 , 'x': .10}
+            font_style: 'H6'
+            theme_text_color: 'Custom'
+            text_color: 0, 0, 0, 0.625
+        
+        MDCheckbox:
+            group: "freq"
+            id: freq_wkdays_ckbx
+            active: False
+            size_hint: (None, None)
+            pos_hint: {'x': 0.4, 'y': 0.24}
+            on_active: root.freq_chckbox_wkdays(self, self.active, freq_wkdays_ckbx_output)
+        
+        MDLabel:
+            id: freq_wkdays_ckbx_output
+            text: ""
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {'x': 0.50, 'y': 0.4}
+            font_style: 'H6'
+            theme_text_color: 'Custom'
+            text_color: 0, 0, 0, 0
+
+        MDLabel:
+            id: freq_wkdays_label
+            text: "Weekends Only:"
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {'top': 0.75 , 'x': .10}
+            font_style: 'H6'
+            theme_text_color: 'Custom'
+            text_color: 0, 0, 0, 0.625
+        
+        MDCheckbox:
+            group: "freq"
+            id: freq_wkdays_ckbx
+            active: False
+            size_hint: (None, None)
+            pos_hint: {'x': 0.4, 'y': 0.168}
+            on_active: root.freq_chckbox_wkends(self, self.active, freq_wkdays_ckbx_output)
+        
+        MDLabel:
+            id: freq_wkdays_ckbx_output
+            text: ""
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {'x': 0.50, 'y': 0.3}
+            font_style: 'H6'
+            theme_text_color: 'Custom'
+            text_color: 0, 0, 0, 0
+        
+        MDLabel:
+            id: freq_fullwk_label
+            text: "All Week Long:"
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {'top': 0.675 , 'x': .10}
+            font_style: 'H6'
+            theme_text_color: 'Custom'
+            text_color: 0, 0, 0, 0.625
+        
+        MDCheckbox:
+            group: "freq"
+            id: freq_fullwk_ckbx
+            active: False
+            size_hint: (None, None)
+            pos_hint: {'x': 0.4, 'y': 0.096}
+            on_active: root.freq_chckbox_fullwk(self, self.active, freq_fullwk_ckbx_output)
+        
+        MDLabel:
+            id: freq_fullwk_ckbx_output
+            text: ""
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {'x': 0.5, 'y': 0.2}
+            font_style: 'H6'
+            theme_text_color: 'Custom'
+            text_color: 0, 0, 0, 0
+
+        MDRaisedButton:
+            id: freq_cal_input_button
+            text: "Submit"
+            size_hint: (0.1, 0.08)
+            pos_hint: {'x': 0.75 , 'y': 0.05}
+            on_release: root.manager.current = 'MenuScreen'
+            on_release: root.start_date_move()
+            on_release: root.end_date_move()
+            on_release: root.freq_wkday_move()
+            on_release: root.freq_wkend_move()
+            on_release: root.freq_fullwk_move()
+
+
+
+<TS_Popup>:
+    name: 'TimeSelect_Popup'
+
+    MDFloatLayout:
+        orientation: 'vertical'
+
+        MDTopAppBar:
+            id: topbar2
+            title: "CommAlarm"
+            pos_hint: {'top': 1}
+            elevation: 4
+            md_bg_color: app.theme_cls.primary_color
+            right_action_items: [["dots-vertical", lambda x: app.callback()]]
+
+        MDLabel:
+            id: alarm_time_label
+            text: "Click Button Below to Select Alarm Time"
+            font_size: (root.width**2 + root.height**2) / 13**4
+            text_size: self.size
+            pos_hint: {'top': 1.8125 , 'x': .08}
+            font_style: 'H6'
+            theme_text_color: 'Custom'
+            text_color: 0, 0, 0, 0.625
+
+        MDRaisedButton:
+            id: time_select_button
+            text: "Select Alarm Time" 
+            size_hint: (0.1, 0.08)
+            pos_hint: {'top': 0.775 , 'x': 0.08}
+            on_release: root.a_time_picker_open()
+
+        MDLabel:
+            id: alarm_time_label
+            text: "Alarm Time:"
+            font_size: (root.width**2 + root.height**2) / 13**4
+            text_size: self.size
+            pos_hint: {'top': 1.625 , 'x': .08}
+            font_style: 'H6'
+            theme_text_color: 'Custom'
+            text_color: 0, 0, 0, 0.625
+
+        MDLabel:
+            id: alarm_time_output
+            text: ""
+            font_size: (root.width**2 + root.height**2) / 13**4
+            text_size: self.size
+            pos_hint: {'top': 1.625 , 'x': 0.375}
+            theme_text_color: 'Custom'
+            text_color: 0, 0, 0, 0.625
+
+        MDLabel:
+            id: arrvl_alarm_time_label
+            text: "Click Button Below to Select Arrival Time"
+            font_size: (root.width**2 + root.height**2) / 13**4
+            text_size: self.size
+            pos_hint: {'top': 1.55 , 'x': 0.08}
+            font_style: 'H6'
+            theme_text_color: 'Custom'
+            text_color: 0, 0, 0, 0.625
+
+        MDRaisedButton:
+            id: arrvl_time_button
+            text: "Arrival Time"
+            size_hint: (0.1, 0.08)
+            pos_hint: {'top': 0.5125 , 'x': 0.08}
+            on_release: root.arrvl_time_picker_open()
+
+        MDLabel:
+            id: arrvl_time_output_label
+            text: "Arrival Time:"
+            font_size: (root.width**2 + root.height**2) / 13**4
+            text_size: self.size
+            pos_hint: {'top': 1.3625 , 'x': 0.08}
+            font_style: 'H6'
+            theme_text_color: 'Custom'
+            text_color: 0, 0, 0, 0.625
+
+        MDLabel:
+            id: arrvl_time_output
+            text: ""
+            font_size: (root.width**2 + root.height**2) / 13**4
+            text_size: self.size
+            pos_hint: {'top': 1.3625 , 'x': 0.375}
+            theme_text_color: 'Custom'
+            text_color: 0, 0, 0, 0.625
+
+        MDLabel:
+            id: r_alarm_time_label
+            text: "Time it Takes You to Get Ready:"
+            font_size: (root.width**2 + root.height**2) / 13**4
+            text_size: self.size
+            pos_hint: {'top': 1.2875 , 'x': 0.08}
+            font_style: 'H6'
+            theme_text_color: 'Custom'
+            text_color: 0, 0, 0, 0.625
+
+        MDTextField:
+            id: ready_time_output
+            helper_text_mode: "persistent"
+            hint_text: "HH:MM"
+            helper_text: "Enter Time in Minutes"
+            pos_hint: {'top': 0.3375 , 'x': .08}
+            size_hint: (0.1, 0.08)
+        
+        MDRaisedButton:
+            id: submit_time_button
+            text: "Submit"
+            size_hint: (0.1, 0.08)
+            pos_hint: {'x': 0.75 , 'y': 0.05}
+            on_release: root.alarm_time_output()
+            on_release: root.ready_time_output()
+            on_release: root.arrvl_time_output()
+            on_release: root.manager.current = 'MenuScreen'
+
+                
+<Start_Popup>:
+    name: 'Start_Add_Popup'
+
+    MDFloatLayout:
+        orientation: 'vertical'
+
+    MDTopAppBar:
+        id: topbar3
+        title: "CommAlarm"
+        pos_hint: {'top': 1}
+        elevation: 4
+        md_bg_color: app.theme_cls.primary_color
+        right_action_items: [["dots-vertical", lambda x: app.callback()]]        
+
+    MDLabel:
+        id: start_loc_label
+        text: "Please Enter Your Origin Location:"
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': .10, 'y': 0.775}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+
+    MDTextField:
+        id: stadd_txt_field
+        text: "100 Main St"
+        # hint_text: "Street Address"
+        # helper_text_mode: "on_focus"
+        pos_hint: {'x': .10, 'y': 0.65}
+        size_hint_x: None
+        width: 250
+        required: True
+
+    MDTextField:
+        id: city_txt_field
+        text: "Springfield"
+        # hint_text: "City"
+        # helper_text_mode: "on_focus"
+        pos_hint: {'x': .10, 'y': 0.55}
+        size_hint_x: None
+        width: 150
+        required: True
+    
+    MDTextField:
+        id: state_txt_field
+        text: "MA"
+        # hint_text: "State"
+        # helper_text_mode: "on_focus"
+        pos_hint: {'x': 0.60, 'y': 0.55}
+        size_hint_x: None
+        width: 50
+        required: True
+
+    MDTextField:
+        id: zip_txt_field
+        hint_text: "Zip Code"
+        helper_text_mode: "on_focus"
+        pos_hint: {'x': .10, 'y': 0.45}
+        size_hint_x: None
+        width: 100
+        required: True
+    
+    MDRaisedButton:
+        id: next_but_home
+        text: "Next"
+        size_hint: (0.1, 0.08)
+        pos_hint: {'x': .75, 'y': 0.05} 
+        on_release: root.add_input_move()
+        on_release: root.city_input_move()
+        on_release: root.state_input_move()
+        on_release: root.zip_input_move()
+        on_release: root.manager.current = 'MenuScreen'
+
+
+<End_Popup>:
+    name: 'End_Popup'    
+
+    MDTopAppBar:
+        id: topbar4
+        title: "CommAlarm"
+        pos_hint: {'top': 1}
+        elevation: 4
+        md_bg_color: app.theme_cls.primary_color
+        right_action_items: [["dots-vertical", lambda x: app.callback()]] 
+
+    MDLabel:
+        id: e_start_loc_label
+        text: "Please Enter Your Destination Location:"
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': .10, 'y': 0.775}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+
+    MDTextField:
+        id: e_stadd_txt_field
+        text: "345 Harrison Ave"
+        # hint_text: "Street Address"
+        # helper_text_mode: "on_focus"
+        pos_hint: {'x': .10, 'y': 0.65}
+        size_hint_x: None
+        width: 250
+        required: True
+
+    MDTextField:
+        id: e_city_txt_field
+        text: "Boston"
+        # hint_text: "City"
+        # helper_text_mode: "on_focus"
+        pos_hint: {'x': .10, 'y': 0.55}
+        size_hint_x: None
+        width: 150
+        required: True
+    
+    MDTextField:
+        id: e_state_txt_field
+        text: "MA"
+        # hint_text: "State"
+        # helper_text_mode: "on_focus"
+        pos_hint: {'x': 0.60, 'y': 0.55}
+        size_hint_x: None
+        width: 50
+        required: True
+
+    MDTextField:
+        id: e_zip_txt_field
+        hint_text: "Zip Code"
+        helper_text_mode: "on_focus"
+        pos_hint: {'x': .10, 'y': 0.45}
+        size_hint_x: None
+        width: 100
+        required: True
+    
+    MDRaisedButton:
+        id: next_but_home
+        text: "Next"
+        size_hint: (0.1, 0.08)
+        pos_hint: {'x': .75, 'y': 0.05} 
+        on_release: root.e_add_input_move()
+        on_release: root.e_city_input_move()
+        on_release: root.e_state_input_move()
+        on_release: root.e_zip_input_move()
+        on_release: root.manager.current = 'MenuScreen'               
+
+<Review_Popup>:
+    name: 'Review_Popup'
+
+    MDFloatLayout:
+        orientation: 'vertical'
+
+    MDTopAppBar:
+        id: topbar3
+        title: "CommAlarm"
+        pos_hint: {'top': 1}
+        elevation: 4
+        md_bg_color: app.theme_cls.primary_color
+        right_action_items: [["dots-vertical", lambda x: app.callback()]]        
+        
+    MDLabel:
+        id: alarm_time_label
+        text: "Alarm Time:"
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.10, 'y': 0.825}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        bold: True
+        text_color: 0, 0, 0, 0.75
+    
+    MDLabel:
+        id: time_input_label
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.40, 'y': 0.825}
+        # font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+    
+    MDLabel:
+        id: ampm_input_label
+        text: ""
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.55, 'y': 0.825}
+        # font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+
+    MDLabel:
+        id: ready_time_label
+        text: "Est. Arrival Time:"
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.10, 'y': 0.775}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        bold: True
+        text_color: 0, 0, 0, 0.75
+    
+    MDLabel:
+        id: arrvl_input_label
+        text: ""
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.50, 'y': 0.775}
+        # font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+    
+    MDLabel:
+        id: arrvl_ampm_input_label
+        text: ""
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.65, 'y': 0.775}
+        # font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+    
+    MDLabel:
+        id: ready_time_label
+        text: "Amount of Time to Get Ready:"
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.10, 'y': 0.725}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        bold: True
+        text_color: 0, 0, 0, 0.75
+    
+    MDLabel:
+        id: ready_input_label
+        text: ""
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.775, 'y': 0.725}
+        # font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+    
+    MDLabel:
+        id: freq_label
+        text: "Frequency of Alarm:"
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.10, 'y': 0.675}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        bold: True
+        text_color: 0, 0, 0, 0.75
+    
+    MDLabel:
+        id: freq_input_label
+        text: ""
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.55, 'y': 0.675}
+        # font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+    
+    MDLabel:
+        id: start_date_label
+        text: "Start Date:"
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.10, 'y': 0.625}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+    
+    MDLabel:
+        id: start_date_input
+        text: " "
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.40, 'y': 0.625}
+        # font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+    
+    MDLabel:
+        id: end_date_label
+        text: "End Date:"
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.10, 'y': 0.575}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+    
+    MDLabel:
+        id: end_date_input
+        text: " "
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.40, 'y': 0.575}
+        # font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+
+    MDLabel:
+        id: adddress_label
+        text: "Orig. Address:"
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.10, 'y': 0.525}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+
+    MDLabel:
+        id: add_output_label
+        text: ""
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.45, 'y': 0.525}
+        # font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+    
+    MDLabel:
+        id: city_label
+        text: 'City:'
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.10, 'y': 0.475}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+    
+    MDLabel:
+        id: city_output_label
+        text: ""
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.225, 'y': 0.475}
+        # font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+    
+    MDLabel:
+        id: state_label
+        text: "State:"
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.10, 'y': 0.425}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+    
+    MDLabel:
+        id: state_output_label
+        text: ""
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.25, 'y': 0.425}
+        # font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+
+    MDLabel:
+        id: zip_label
+        text: "Zip Code:"
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.10, 'y': 0.375}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+    
+    MDLabel:
+        id: zip_output_label
+        text: ""
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.325, 'y': 0.375}
+        # font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+
+    MDLabel:
+        id: e_adddress_label
+        text: "Dest. Address:"
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.10, 'y': 0.325}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+
+    MDLabel:
+        id: e_add_output_label
+        text: ""
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.455, 'y': 0.325}
+        # font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+    
+    MDLabel:
+        id: e_city_label
+        text: 'City:'
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.10, 'y': 0.275}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+    
+    MDLabel:
+        id: e_city_output_label
+        text: ""
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.225, 'y': 0.275}
+        # font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+    
+    MDLabel:
+        id: e_state_label
+        text: "State:"
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.10, 'y': 0.225}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+    
+    MDLabel:
+        id: e_state_output_label
+        text: ""
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.25, 'y': 0.225}
+        # font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+
+    MDLabel:
+        id: e_zip_label
+        text: "Zip Code:"
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.10, 'y': 0.175}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+    
+    MDLabel:
+        id: e_zip_output_label
+        text: ""
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.325, 'y': 0.175}
+        # font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+
+    MDRaisedButton:
+        id: next_but_submit
+        text: "Submit 1st"
+        size_hint: (0.1, 0.08)
+        pos_hint: {'x': .75, 'y': 0.05} 
+        on_release: root.process_data()
+
+    MDRaisedButton:
+        id: next_but_submit
+        text: "Submit 2nd"
+        size_hint: (0.1, 0.08)
+        pos_hint: {'x': .15, 'y': 0.05} 
+        on_release: root.calc_travel_time()
+        on_release: root.manager.current = 'Calc_Screen'
+
+    MDLabel:
+        id: response_label
+        text: ""
+        font_size: (root.width**2 + root.height**2) / 13**4
+        pos_hint: {'x': 1.0, 'y': 1.0}
+
+<Calc_Screen>:
+    name: 'Calc_Screen'
+
+    MDFloatLayout:
+        orientation: 'vertical'
+
+    MDTopAppBar:
+        id: topbar3
+        title: "CommAlarm"
+        pos_hint: {'top': 1}
+        elevation: 4
+        md_bg_color: app.theme_cls.primary_color
+        right_action_items: [["dots-vertical", lambda x: app.callback()]]        
+    
+    MDLabel:
+        id: comm_time_label
+        text: "Commute Time:"
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.10, 'y': 0.80}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+
+    MDLabel:
+        id: comm_time_input
+        text: ""
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.60, 'y': 0.80}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+
+    MDLabel:
+        id: fcomm_time_label
+        text: "Form. Commute Time:"
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.10, 'y': 0.75}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+
+    MDLabel:
+        id: fcomm_time_input
+        text: ""
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.70, 'y': 0.75}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+
+    MDLabel:
+        id: alarm_time_input_label
+        text: "Alarm Time Input:"
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.10, 'y': 0.70}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+    
+    MDLabel:
+        id: alarm_time_input
+        text: ""
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.55, 'y': 0.70}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+    
+    MDLabel:
+        id: ready_time_input_label
+        text: "Ready Time Input:"
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.10, 'y': 0.65}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+    
+    MDLabel:
+        id: ready_time_input
+        text: ""
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.55, 'y': 0.65}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+    
+    MDLabel:
+        id: arrvl_time_input_label
+        text: "Arrival Time Input:"
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.10, 'y': 0.60}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+    
+    MDLabel:
+        id: arrvl_time_input
+        text: ""
+        font_size: (root.width**2 + root.height**2) / 13**4
+        text_size: self.size
+        pos_hint: {'x': 0.55, 'y': 0.60}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+
+    MDLabel:
+        id: new_alarm_time_label
+        text: "Calculated Alarm Time:"
+        font_size: "25sp"
+        pos_hint: {'x': 0.20, 'y': 0.05}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+
+    MDLabel:
+        id: new_alarm_input
+        text: ""
+        font_size: "25sp"
+        text_size: 200, 200
+        pos_hint: {'x': 0.375, 'y': 0.001}
+        font_style: 'H6'
+        theme_text_color: 'Custom'
+        text_color: 0, 0, 0, 0.625
+
+    MDRaisedButton:
+        id: next_but_submit
+        text: "Submit 2nd"
+        size_hint: (0.1, 0.08)
+        pos_hint: {'x': .75, 'y': 0.05} 
+        on_release: root.new_alarm_time_final()
+        
+    MDRaisedButton:
+        id: next_but_submit
+        text: "Submit 1st"
+        size_hint: (0.1, 0.08)
+        pos_hint: {'x': .15, 'y': 0.05} 
+        on_release: root.new_alarm_time_final()
+        on_release: root.comm_time_final()
+        
