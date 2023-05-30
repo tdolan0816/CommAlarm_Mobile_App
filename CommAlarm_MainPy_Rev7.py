@@ -250,7 +250,7 @@ class Review_Popup(Screen):
     def process_data(self):
         start_data = self.origin()
         end_data = self.dest()
-        url = f"https://maps.googleapis.com/maps/api/distancematrix/json?origins={start_data}&destinations={end_data}&departure_time=now&key=AIzaSyAt3cfWb_B_ZYY1mkFeQK8S855C88ZvUQ4"
+        url = f"https://maps.googleapis.com/maps/api/distancematrix/json?origins={start_data}&destinations={end_data}&departure_time=now&key=KEY"
         payload={}
         headers = {}
         response = requests.request("GET", url, headers=headers, data=payload)
